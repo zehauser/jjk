@@ -1,10 +1,10 @@
 {
   "name": "jjk",
   "displayName": "Jujutsu Kaizen",
-  "publisher": "jjk",
+  "publisher": "zehauser",
   "description": "Jujutsu (jj) version control system for VS Code",
   "icon": "images/logo.png",
-  "version": "0.11.0",
+  "version": "0.11.0-zehauser",
   "engines": {
     "vscode": "^1.96.0",
     "npm": ">=11.10.0"
@@ -590,13 +590,14 @@
           "type": "string",
           "default": "",
           "description": "Path to the jj executable. If not set, your PATH and common locations will be searched for a jj executable.",
-          "scope": "resource"
+          "scope": "machine"
         },
         "jjk.fakeEditorPath": {
           "type": [
             "string",
             "null"
           ],
+          "scope": "machine",
           "default": null,
           "description": "Path to the fake editor executable. If not set, use bundled prebuilt binaries for the current platform."
         },

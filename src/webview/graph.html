@@ -718,6 +718,22 @@
               connectionLines.appendChild(path);
             }
           });
+
+          // A parent outside the shown rows (log revset gap or limit): draw a short dashed stub to
+          // the row's bottom edge, like the dangling edges in `jj log`, instead of no line at all.
+          if (parentIds.some((parentId) => !nodeMap.has(parentId))) {
+            const stub = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "path",
+            );
+            stub.setAttribute("class", "connection-line elided-connection");
+            stub.dataset.fromChangeId = node.dataset.changeId;
+            stub.setAttribute(
+              "d",
+              `M ${currentX} ${currentY} L ${currentX} ${currentY + nodeRect.height / 2}`,
+            );
+            connectionLines.appendChild(stub);
+          }
         });
       }
 
@@ -894,6 +910,7 @@
             const truncationRow = document.createElement("div");
             truncationRow.className = "truncation-row";
             truncationRow.textContent = "~ Older revisions hidden";
+            truncationRow.title = change.tooltip;
             nodesContainer.appendChild(truncationRow);
             return;
           }

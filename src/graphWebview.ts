@@ -296,8 +296,9 @@ export class JJGraphWebview implements vscode.WebviewViewProvider {
   ): Promise<ChangeNode[]> {
     // The visible log template does not include explicit parent IDs, so fetch a second compact map
     // keyed by the same short change IDs that the graph rows render.
+    // Same revset (`revsets.log`), limit and ordering as the rows in refresh().
     const output = await this.repository.log(
-      "::", // get all changes
+      undefined,
       `
         if(root,
           "root()",
@@ -512,8 +513,8 @@ export function parseJJLog(output: string): ChangeNode[] {
         new ChangeNode(
           "Older revisions hidden",
           "Older revisions hidden",
-          "Older revisions are hidden by the current jj log limit.",
-          "",
+          // jj prints `~` only for parents outside the revset, not when `-n` truncates the log.
+          "Revisions not in your log revset (revsets.log) are hidden here.", "",
           "",
           "",
           "",

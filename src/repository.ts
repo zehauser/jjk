@@ -1810,8 +1810,11 @@ export class JJRepository {
     }).catch(convertJJErrors);
   }
 
+  /**
+    * @param rev - Revset to show. If omitted, jj uses the user's `revsets.log`.
+    */
   async log(
-    rev: string = "::",
+    rev?: string,
     template: string = "builtin_log_compact",
     limit: number = 50,
     noGraph: boolean = false,
@@ -1821,8 +1824,7 @@ export class JJRepository {
         this.spawnJJRead(
           [
             "log",
-            "-r",
-            rev,
+            ...(rev !== undefined ? ["-r", rev] : []),
             "-n",
             limit.toString(),
             "-T",

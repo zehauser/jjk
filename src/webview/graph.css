@@ -212,6 +212,11 @@ body {
   fill: none;
 }
 
+/* Stub toward a parent that isn't shown (log revset gap or limit) */
+.connection-line.elided-connection {
+  stroke-dasharray: 2 3;
+}
+
 /* Node styling */
 .change-node {
   position: relative;
